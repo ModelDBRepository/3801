@@ -1,0 +1,29 @@
+// from Imre Vida 2/14/2002
+// axon collaterals for the basket cell
+
+create axon_col[150]
+
+{for i = 0, 9    connect axon_col[i](0), axonA1_2(1)}
+{for i = 10, 19  connect axon_col[i](0), axonA1_31(1)}
+{for i = 20, 29  connect axon_col[i](0), axonA1_52(1)}
+{for i = 30, 39  connect axon_col[i](0), axonA1_15(1)}
+{for i = 40, 49  connect axon_col[i](0), axonA1_121(1)}
+{for i = 50, 59  connect axon_col[i](0), axonA1_142(1)}
+{for i = 60, 69  connect axon_col[i](0), axonA1_3021(1)}
+{for i = 70, 79  connect axon_col[i](0), axonA1_5042(1)}
+{for i = 80, 99  connect axon_col[i](0), axonA1_1105(1)}
+{for i = 100, 119 connect axon_col[i](0), axonA1_12021(1)}
+{for i = 120, 139 connect axon_col[i](0), axonA1_02021(1)}
+{for i = 140, 149 connect axon_col[i](0), axonA1_005(1)}
+
+for i = 0, 149 axon_col[i] {
+        nseg = 1
+        L    = 42 
+        diam = 0.9
+	Ra = 100
+	cm = 0.8
+	insert pas
+	e_pas = -70
+	g_pas = 1/11150
+}
+

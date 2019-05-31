@@ -1,0 +1,60 @@
+load_file("nrngui.hoc")
+load_file("all.ses")
+load_file("axon_collat.hoc")
+
+v_init = -70	// mV
+tstop = 25	// mS
+
+objref ginitial
+ginitial = new Vector(3)
+for ii = 0,2 {
+  // make sure this isn't undone by session saves
+//  syn2[ii].gmax = 0.00354
+  syn2[ii].gmax = 0.0158/3
+  syn2[ii].tau0 = 0.2
+  syn2[ii].tau1 = 1.02
+  ginitial.x[ii] = syn2[ii].gmax
+}
+
+
+proc doit() {
+  if ($1==3) {
+    // restore initial gmax to all
+    for ii = 0,2 {
+      syn2[ii].gmax = ginitial.x[ii]
+    }
+  } else {
+    for ii = 0,2 {
+      syn2[ii].gmax = 0
+    }
+    syn2[$1].gmax = ginitial.x[$1]
+  }
+  run()
+}
+
+/*
+{
+xpanel("kludge", 0)
+xlabel("Fig.5Bc")
+xbutton("All three synaptic terminals are active","doit(3)")
+xlabel("-------------")
+xlabel("Fig.5Bd: 'quantal' components")
+xbutton("synapse 0 only","doit(0)")
+xbutton("synapse 1 only","doit(1)")
+xbutton("synapse 2 only","doit(2)")
+xpanel(425,80)
+}
+
+{
+xpanel("message", 0)
+xlabel("The CellBuilder specifies the detailed quantitative morphology")
+xlabel("of the model cell.  Extensive axonal branching is emulated by")
+xlabel("a large number of 100 um diameter neurites that the authors")
+xlabel("specified with hoc code (see axon_collat.hoc).  These are not")
+xlabel("seen in the CellBuilder, but they appear as several brushlike")
+xlabel("tufts in the shape plot associated with the")
+xlabel("PointProcessGroupManager.")
+xpanel(7,105)
+}
+*/
+
